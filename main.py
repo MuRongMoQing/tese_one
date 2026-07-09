@@ -8,6 +8,5 @@ def main() -> None:
     root = tk.Tk()
     app = LimitCalculatorApp(root)
     root.mainloop()
-
 if __name__ == "__main__":
     main()
