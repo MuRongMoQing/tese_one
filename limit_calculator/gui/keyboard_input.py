@@ -1,6 +1,7 @@
 # gui/keyboard_input.py
 import tkinter as tk
 
+
 def create_keyboard(master: tk.Tk, on_key_press) -> tk.Frame:
     """
     创建一个虚拟键盘，包含数字、运算符和其他常用符号，并绑定按键事件处理函数。
@@ -26,7 +27,8 @@ def create_keyboard(master: tk.Tk, on_key_press) -> tk.Frame:
         row_frame = tk.Frame(keyboard_frame)
         row_frame.pack(side=tk.TOP, fill=tk.X)
         for key in row:
-            button = tk.Button(row_frame, text=key, width=5, height=2, command=lambda k=key: on_key_press(k))
+            button = tk.Button(row_frame, text=key, width=5,
+                               height=2, command=lambda k=key: on_key_press(k))
             button.pack(side=tk.LEFT, padx=5, pady=5)
 
     return keyboard_frame

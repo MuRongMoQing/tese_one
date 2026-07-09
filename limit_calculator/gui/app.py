@@ -7,6 +7,7 @@ from .result_display import ResultDisplay
 from ..functions.limits import calculate_left_right_limit, calculate_overall_limit, check_continuity_and_discontinuities
 from .export import export_to_image, export_to_pdf
 
+
 class LimitCalculatorApp:
     def __init__(self, master: tk.Tk) -> None:
         """
@@ -26,7 +27,8 @@ class LimitCalculatorApp:
 
         # 创建虚拟键盘
         self.keyboard_frame = create_keyboard(self.master, self.on_key_press)
-        self.keyboard_frame.grid(row=10, column=0, columnspan=2, pady=10, sticky='nsew')
+        self.keyboard_frame.grid(
+            row=10, column=0, columnspan=2, pady=10, sticky='nsew')
 
         # 绑定焦点事件
         self.entry_expression.bind("<FocusIn>", self.on_focus_in)
@@ -42,38 +44,49 @@ class LimitCalculatorApp:
         创建应用程序的用户界面组件，包括标签、输入框、按钮等。
         """
         # 函数表达式
-        tk.Label(self.master, text="函数表达式:").grid(row=0, column=0, padx=5, pady=5, sticky='w')
+        tk.Label(self.master, text="函数表达式:").grid(
+            row=0, column=0, padx=5, pady=5, sticky='w')
         self.entry_expression = tk.Entry(self.master, width=40)
-        self.entry_expression.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
+        self.entry_expression.grid(
+            row=0, column=1, padx=5, pady=5, sticky='ew')
 
         # 自变量
-        tk.Label(self.master, text="自变量:").grid(row=1, column=0, padx=5, pady=5, sticky='w')
+        tk.Label(self.master, text="自变量:").grid(
+            row=1, column=0, padx=5, pady=5, sticky='w')
         self.entry_variable = tk.Entry(self.master, width=40)
         self.entry_variable.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
 
         # 目标点
-        tk.Label(self.master, text="目标点:").grid(row=2, column=0, padx=5, pady=5, sticky='w')
+        tk.Label(self.master, text="目标点:").grid(
+            row=2, column=0, padx=5, pady=5, sticky='w')
         self.entry_point = tk.Entry(self.master, width=40)
         self.entry_point.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
 
         # 区间
-        tk.Label(self.master, text="区间 (start, end):").grid(row=3, column=0, padx=5, pady=5, sticky='w')
+        tk.Label(self.master, text="区间 (start, end):").grid(
+            row=3, column=0, padx=5, pady=5, sticky='w')
         self.entry_interval_start = tk.Entry(self.master, width=20)
-        self.entry_interval_start.grid(row=3, column=1, padx=5, pady=5, sticky='w')
+        self.entry_interval_start.grid(
+            row=3, column=1, padx=5, pady=5, sticky='w')
         self.entry_interval_end = tk.Entry(self.master, width=20)
-        self.entry_interval_end.grid(row=3, column=1, padx=5, pady=5, sticky='e')
+        self.entry_interval_end.grid(
+            row=3, column=1, padx=5, pady=5, sticky='e')
 
         # 计算按钮
-        calculate_button = tk.Button(self.master, text="计算", command=self.on_calculate)
-        calculate_button.grid(row=4, column=0, columnspan=2, pady=10, sticky='ew')
+        calculate_button = tk.Button(
+            self.master, text="计算", command=self.on_calculate)
+        calculate_button.grid(
+            row=4, column=0, columnspan=2, pady=10, sticky='ew')
 
         # 导出按钮
-        export_button = tk.Button(self.master, text="导出结果", command=self.on_export)
+        export_button = tk.Button(
+            self.master, text="导出结果", command=self.on_export)
         export_button.grid(row=6, column=0, columnspan=2, pady=10, sticky='ew')
 
         # 结果标签
         self.result_display = ResultDisplay(self.master)
-        self.result_display.grid(row=5, column=0, columnspan=2, pady=10, sticky='ew')
+        self.result_display.grid(
+            row=5, column=0, columnspan=2, pady=10, sticky='ew')
 
     def on_focus_in(self, event: tk.Event) -> None:
         """
@@ -100,7 +113,8 @@ class LimitCalculatorApp:
             elif point_str.lower() == '-inf':
                 point = float('-inf')
             elif 'pi' in point_str or 'e' in point_str:
-                point = eval(point_str, {'pi': pi, 'e': E, variable: symbols(variable)})
+                point = eval(
+                    point_str, {'pi': pi, 'e': E, variable: symbols(variable)})
             else:
                 point = float(point_str)
         except ValueError:
@@ -108,14 +122,17 @@ class LimitCalculatorApp:
             return
 
         try:
-            interval = (eval(interval_start, {'pi': pi, 'e': E}), eval(interval_end, {'pi': pi, 'e': E}))
+            interval = (eval(interval_start, {'pi': pi, 'e': E}), eval(
+                interval_end, {'pi': pi, 'e': E}))
         except ValueError:
             self.result_display.set_text("请输入有效的区间")
             return
 
-        left_lim, right_lim, are_equal = calculate_left_right_limit(expression, variable, point)
+        left_lim, right_lim, are_equal = calculate_left_right_limit(
+            expression, variable, point)
         overall_limit = calculate_overall_limit(expression, variable, point)
-        continuous, discontinuities = check_continuity_and_discontinuities(expression, variable, point, interval)
+        continuous, discontinuities = check_continuity_and_discontinuities(
+            expression, variable, point, interval)
 
         result_text = f"左极限: ${latex(left_lim)}$\n右极限: ${latex(right_lim)}\n"
         if are_equal:
@@ -164,7 +181,8 @@ class LimitCalculatorApp:
         """
         result_text = self.result_display.cget("text")
         if result_text:
-            export_format = messagebox.askquestion("导出格式", "请选择导出格式:\n是 - 图片\n否 - PDF")
+            export_format = messagebox.askquestion(
+                "导出格式", "请选择导出格式:\n是 - 图片\n否 - PDF")
             if export_format == 'yes':
                 export_to_image(result_text)
             else:

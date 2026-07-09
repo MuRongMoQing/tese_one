@@ -1,6 +1,7 @@
 # functions/continuity.py
 from sympy import symbols, limit, oo, pi, E, latex, sympify
 
+
 def is_continuous(expression: str, variable: str, point: float) -> bool:
     """
     判断给定表达式在某一点是否连续。
@@ -25,6 +26,7 @@ def is_continuous(expression: str, variable: str, point: float) -> bool:
     except Exception as e:
         print(f"无法计算连续性: {e}")
         return False
+
 
 def find_discontinuities(expression: str, variable: str, interval: tuple, step: float = 0.1) -> list:
     """

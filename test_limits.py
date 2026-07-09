@@ -34,14 +34,16 @@ class TestCalculateLeftRightLimit:
 
     def test_polynomial_limit(self):
         """lim x->1 (x**2 - 1)/(x - 1) = 2."""
-        left, right, equal = calculate_left_right_limit("(x**2-1)/(x-1)", "x", 1)
+        left, right, equal = calculate_left_right_limit(
+            "(x**2-1)/(x-1)", "x", 1)
         assert left == 2
         assert right == 2
         assert equal is True
 
     def test_polynomial_limit_at_two(self):
         """lim x->2 x**2 + 3*x + 1 = 11."""
-        left, right, equal = calculate_left_right_limit("x**2 + 3*x + 1", "x", 2)
+        left, right, equal = calculate_left_right_limit(
+            "x**2 + 3*x + 1", "x", 2)
         assert left == 11
         assert right == 11
         assert equal is True

@@ -13,7 +13,9 @@ plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体或其他支持中�
 plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
 # 注册中文字体
-pdfmetrics.registerFont(TTFont('SimHei', 'SimHei.ttf'))  # 请确保 SimHei.ttf 在你的系统路径中
+pdfmetrics.registerFont(TTFont('SimHei', 'SimHei.ttf')
+                        )  # 请确保 SimHei.ttf 在你的系统路径中
+
 
 def export_to_image(result_text: str) -> None:
     """
@@ -26,11 +28,13 @@ def export_to_image(result_text: str) -> None:
     print(f"Exporting text: {result_text}")
 
     plt.figure(figsize=(8, 6))
-    plt.text(0.5, 0.5, result_text, fontsize=12, ha='center', va='center', wrap=True, usetex=True)
+    plt.text(0.5, 0.5, result_text, fontsize=12, ha='center',
+             va='center', wrap=True, usetex=True)
     plt.axis('off')
     plt.savefig("result.png", bbox_inches='tight')
     plt.close()
     print("结果已保存为图片: result.png")
+
 
 def export_to_pdf(result_text: str) -> None:
     """
@@ -42,10 +46,12 @@ def export_to_pdf(result_text: str) -> None:
     # 创建一个 PDF 文档模板
     doc = SimpleDocTemplate("result.pdf", pagesize=letter)
     styles = getSampleStyleSheet()
-    custom_style = ParagraphStyle(name='Custom', fontName='SimHei', fontSize=12, leading=14)
+    custom_style = ParagraphStyle(
+        name='Custom', fontName='SimHei', fontSize=12, leading=14)
 
     # 将 result_text 转换为段落
-    paragraphs = [Paragraph(line, custom_style) for line in result_text.split('\n')]
+    paragraphs = [Paragraph(line, custom_style)
+                  for line in result_text.split('\n')]
 
     # 构建文档内容
     doc.build(paragraphs)

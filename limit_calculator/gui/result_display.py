@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 class ResultDisplay(tk.Label):
     def __init__(self, master: tk.Tk) -> None:
         """
